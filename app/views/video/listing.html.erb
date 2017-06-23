@@ -1,0 +1,31 @@
+<div class="header">
+  <h2>Available Videos</h2>
+  <h4>Page: <%= @pagination[:current] -%> of <%= @pagination[:pages] -%></h4>
+</div>
+
+<ul class="video-list">
+  <% @videos.each do |video| %>
+    <%
+      thumb = video['thumbnails'].first
+      subscription = video['subscription_required']
+      flagged = subscription ? 'requires-signin' : ''
+    %>
+    <li class="<%= flagged -%>">
+      <a href="/watch/<%= video['_id'] -%>">
+        <% if !thumb.nil? %>
+        <div class="thumb">
+          <img width="<%= thumb['width'] -%>" height="<%= thumb['height'] -%>" src="<%= thumb['url'] -%>" alt="<%= video['title'] -%>" />
+        </div>
+        <% end %>
+        <h5><%= video['title'] -%></h5>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+<div class="page-bar">
+</div>
+
+<pre>
+  <%= @pagination.inspect -%>
+</pre>
