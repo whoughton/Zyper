@@ -1,20 +1,17 @@
 # == Route Map
 #
-#        Prefix Verb URI Pattern          Controller#Action
-#        signin GET  /signin(.:format)    account#signin
-#       process POST /signin(.:format)    account#process
-#       signout GET  /signout(.:format)   account#signout
-#   watch_video GET  /watch/:id(.:format) video#watch
-# video_listing GET  /                    video#listing
+#        Prefix Verb   URI Pattern            Controller#Action
+#        videos GET    /videos(.:format)      videos#index
+#         video GET    /videos/:id(.:format)  videos#show
+# session_index GET    /session(.:format)     session#index
+#               POST   /session(.:format)     session#create
+#       session DELETE /session/:id(.:format) session#destroy
+#          root GET    /                      videos#home
 # 
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :videos,  only: [:index, :show]
+  resources :session, only: [:index, :create, :destroy]
 
-  get "/signin",    to: "account#signin",			as: 'signin'
-  post "/signin",   to: "account#process",		as: 'process'
-  get "/signout",   to: "account#signout",		as: 'signout'
-
-  get "/watch/:id", to: "video#watch",				as: 'watch_video'
-  root 							to: "video#listing",			as: 'video_listing'
+  root to: "videos#home"
 end

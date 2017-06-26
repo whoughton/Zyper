@@ -1,0 +1,23 @@
+<div class="header">
+  <h2><%= link_to "Demo", root_path -%> :: Sign In</h2>
+</div>
+
+<% if !flash[:notice].nil? %>
+<p class="flash"><%= flash[:notice] -%></p>
+<% end %>
+
+<div class="sign-in">
+  <%= form_tag class: 'sign-in' do -%>
+    <div class="form-row">
+      <%= label_tag(:username, "Username:") %>
+      <%= text_field_tag(:username, "test@test.com") %>
+    </div>
+    <div class="form-row">
+      <%= label_tag(:password, "Password:") %>
+      <%= password_field_tag(:password, "password") %>
+    </div>
+    <div class="form-row final">
+      <%= submit_tag("Sign In") %>
+    </div>
+  <% end %>
+</div>

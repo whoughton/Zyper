@@ -1,6 +1,5 @@
 <div class="header">
-  <h2>Available Videos</h2>
-  <h4>Page: <%= @pagination[:current] -%> of <%= @pagination[:pages] -%></h4>
+  <h2><%= link_to "Demo", root_path -%> :: Available Videos</h2>
 </div>
 
 <ul class="video-list">
@@ -11,21 +10,25 @@
       flagged = subscription ? 'requires-signin' : ''
     %>
     <li class="<%= flagged -%>">
-      <a href="/watch/<%= video['_id'] -%>">
+      <%= link_to(video_path(id: video['_id'])) do %>
         <% if !thumb.nil? %>
         <div class="thumb">
           <img width="<%= thumb['width'] -%>" height="<%= thumb['height'] -%>" src="<%= thumb['url'] -%>" alt="<%= video['title'] -%>" />
         </div>
         <% end %>
         <h5><%= video['title'] -%></h5>
-      </a>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
 <div class="page-bar">
-</div>
+  <h4>Page: <%= @pagination[:current] -%> of <%= @pagination[:pages] -%></h4>
+  <%
+    atFront = @pagination[:current] < 2 ? 'atFront' : ''
+    atEnd = @pagination[:current] >= @pagination[:pages] ? 'atEnd' : ''
+  %>
+  <button class="<%= atFront -%>">◀ Previous Page</button>
 
-<pre>
-  <%= @pagination.inspect -%>
-</pre>
+  <button class="<%= atEnd -%>">Next Page ▶︎</button>
+</div>

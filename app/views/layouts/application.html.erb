@@ -5,11 +5,17 @@
     <%= csrf_meta_tags %>
 
 		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity=" sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-		<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,400i,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,400i,700|Shrikhand" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
 
   <body>
     <%= yield %>
+
+    <% if !session[:access_token].blank? %>
+    <div class="sign-out">
+      <%= button_to "Sign Out", session_path(session[:access_token]), method: :delete -%>
+    </div>
+    <% end %>
   </body>
 </html>
