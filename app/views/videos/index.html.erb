@@ -23,12 +23,9 @@
 </ul>
 
 <div class="page-bar">
-  <h4>Page: <%= @pagination[:current] -%> of <%= @pagination[:pages] -%></h4>
-  <%
-    atFront = @pagination[:current] < 2 ? 'atFront' : ''
-    atEnd = @pagination[:current] >= @pagination[:pages] ? 'atEnd' : ''
-  %>
-  <button class="<%= atFront -%>">◀ Previous Page</button>
+  <%= link_to "◀ Previous Page", videos_path({page: @pagination[:previous] }) if !@pagination[:previous].nil? -%>
 
-  <button class="<%= atEnd -%>">Next Page ▶︎</button>
+  <h4>Page: <%= @pagination[:current] -%> of <%= @pagination[:pages] -%></h4>
+
+  <%= link_to "Next Page ▶︎", videos_path({ page: @pagination[:next] }) if !@pagination[:next].nil? -%>
 </div>

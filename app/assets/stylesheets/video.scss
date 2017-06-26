@@ -110,7 +110,8 @@ a {
 	padding: 16px 0;
 }
 
-button {
+.page-bar a {
+	display: inline-block;
 	border: 1px solid hsla(0, 0%, 100%, 0.5);
 	border-radius: 12px;
 	background-color: hsla(280, 50%, 50%, 0.25);
@@ -132,6 +133,10 @@ button {
 	&.atFront, &.atEnd {
 		opacity: 0;
 	}
+}
+
+.page-bar h4 {
+	display: inline-block;
 }
 
 .watermark {

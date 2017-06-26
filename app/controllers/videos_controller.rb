@@ -6,7 +6,8 @@ class VideosController < ApplicationController
 	end
 
 	def index
-		@videos, @pagination = ZypeGateway.getListings()
+		page_num = params[:page].to_i || 1
+		@videos, @pagination = ZypeGateway.getListings(page_num)
 	end
 
 	def show
