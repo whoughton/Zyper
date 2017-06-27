@@ -2,7 +2,6 @@ class SessionController < ApplicationController
 	require 'ZypeGateway'
 
 	def index
-		Rails.logger.debug session[:access_token].inspect
 		redirect_to videos_path if !session[:access_token].blank?
 	end
 
@@ -29,8 +28,6 @@ class SessionController < ApplicationController
 	end
 
 	def destroy
-		Rails.logger.debug "DESTROY SESSION"
-
 		reset_session
 		redirect_to videos_path and return
 	end

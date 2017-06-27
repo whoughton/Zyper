@@ -12,7 +12,13 @@ module ZypeGateway
     begin
       parsed = JSON.parse response.body
       return parsed['response'], parsed['pagination'].with_indifferent_access
-    rescue
+
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.debug "Received an error from the Zype API"
+      return false, "Zype API Error: #{e.inspect}."
+
+    rescue Exception => e
+      Rails.logger.debug "getVideo Exception: #{e.inspect}"
       return false, false
     end
   end
@@ -55,9 +61,14 @@ module ZypeGateway
       video = parsed['response'].with_indifferent_access
 
       player_path = "https://player.zype.com/embed/#{video[:_id]}.js?#{query_params.to_query}"
-
       return video, player_path
-    rescue
+
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.debug "Received an error from the Zype API"
+      return false, "Zype API Error: #{e.inspect}."
+
+    rescue Exception => e
+      Rails.logger.debug "getVideo Exception: #{e.inspect}"
       return false, false
     end
   end
